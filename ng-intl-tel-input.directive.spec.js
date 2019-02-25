@@ -154,3 +154,35 @@ describe('ng-intl-tel-input', function () {
     expect($scope.model.selectedCountry.iso2).toEqual('us');
   }));
 });
+
+
+describe('ng-intl-tel-input-ocforks', function () {
+
+  var $scope, form, doc, element;
+  beforeEach(module('ngIntlTelInput'));
+  beforeEach(inject(function ($compile, $rootScope) {
+    $scope = $rootScope;
+    doc = angular.element(
+      '<form name="form">' +
+      '<label for="tel">Telephone</label>' +
+      '<input ng-model="model.tel" type="text" name="tel" ng-intl-tel-input data-options="phone country" data-initial-country="gu" />' +
+      '</form>'
+    );
+    $scope.model = {tel: {}};
+    $compile(doc)($scope);
+    $scope.$digest();
+    form = $scope.form;
+    element = doc.find('input').eq(0);
+  }));
+
+
+  it('should set the model value to an object including the full phone number with dial code included and the dial code separately', function () {
+    angular.element(element).val('6715555555').trigger('input');
+    $scope.$digest();
+    console.log($scope.model.tel);
+    expect($scope.model.tel).toEqual({
+      phone: '+16715555555',
+      country: '1671'
+    });
+  });
+});
