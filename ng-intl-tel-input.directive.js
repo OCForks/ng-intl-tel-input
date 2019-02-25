@@ -57,12 +57,13 @@ angular.module('ngIntlTelInput')
               return elm.intlTelInput('getNumber');
             }
 
-            var options = scope.options.split(",");
+            var options = scope.options.split(" ");
             var model = {};
-            if (options.indexOf('phone')) {
-              model.phone = elm.intlTelInput('getNumber');
+            if (options.indexOf('phone') !== -1) {
+              var phone = elm.intlTelInput('getNumber');
+              model.phone = phone;
             }
-            if (options.indexOf('country')) {
+            if (options.indexOf('country') !== -1) {
               var countryData = elm.intlTelInput('getSelectedCountryData');
               model.country = (countryData && countryData.dialCode) ? countryData.dialCode : '1';
             }

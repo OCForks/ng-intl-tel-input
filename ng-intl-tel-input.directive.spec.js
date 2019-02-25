@@ -179,7 +179,6 @@ describe('ng-intl-tel-input-ocforks', function () {
   it('should set the model value to an object including the full phone number with dial code included and the dial code separately', function () {
     angular.element(element).val('6715555555').trigger('input');
     $scope.$digest();
-    console.log($scope.model.tel);
     expect($scope.model.tel).toEqual({
       phone: '+16715555555',
       country: '1671'
